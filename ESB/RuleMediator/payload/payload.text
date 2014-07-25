@@ -1,0 +1,21 @@
+   <soap:Body>
+   <ir:facts xmlns:ir="http://example.com/rulemediator">
+
+  <ir:Person>
+  <ir:name>Asanka</ir:name>
+  <ir:Age>20</ir:Age>
+  </ir:Person>
+  
+  <ir:Person>
+  <ir:name>Varu</ir:name>
+  <ir:Age>12</ir:Age>
+  </ir:Person>
+  
+  <ir:Person>
+  <ir:name>Shri</ir:name>
+  <ir:Age>20</ir:Age>
+  </ir:Person>
+  
+    
+   </ir:facts>
+   </soap:Body>

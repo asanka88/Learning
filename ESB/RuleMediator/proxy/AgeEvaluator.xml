@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<proxy xmlns="http://ws.apache.org/ns/synapse"
+       name="AgeEvaluator"
+       transports="https http"
+       startOnLoad="true"
+       trace="disable">
+   <description/>
+   <target>
+      <inSequence>
+         <property xmlns:ir="http://example.com/rulemediator"
+                   name="INPUT"
+                   expression="//ir:facts"
+                   scope="default"
+                   type="OM"/>
+         <brs:rule xmlns:brs="http://wso2.org/carbon/rules">
+            <brs:source>$INPUT</brs:source>
+            <brs:target action="replace">$OUTPUT</brs:target>
+            <brs:ruleSet>
+               <brs:properties/>
+               <brs:rule resourceType="regular" sourceType="inline">
+                
+                  package com.example.rule
+//list any import classes here.
+import org.example.rules.beans.Person;
+
+//declare any global variables here
+
+rule "check for adults"
+when $person: Person(age&gt;=18)
+then
+System.out.println($person.getName()+" is an adult.");
+end
+
+rule "check for teens"
+when $person: Person(age &lt; 18)
+then
+System.out.println($person.getName()+" is an teen.");
+end
+
+</brs:rule>
+            </brs:ruleSet>
+            <brs:input namespace="http://example.com/rulemediator" wrapperElementName="facts">
+               <brs:fact xmlns:ir="http://example.com/rulemediator"
+                         elementName="Student"
+                         namespace="http://example.com/rulemediator"
+                         type="org.example.rules.beans.Person"
+                         xpath="//ir:Person"/>
+            </brs:input>
+            <brs:output namespace="http://example.com/rulemediator" wrapperElementName="out"/>
+         </brs:rule>
+      </inSequence>
+   </target>
+</proxy>

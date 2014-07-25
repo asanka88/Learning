@@ -1,0 +1,8 @@
+CREATE EXTERNAL TABLE IF NOT EXISTS StudentMarks12 (key STRING,name STRING,subject STRING,marks INT,value map<string,string>) STORED BY 
+'org.apache.hadoop.hive.cassandra.CassandraStorageHandler' WITH SERDEPROPERTIES ( "cassandra.host" = "localhost",
+"cassandra.port" = "9160","cassandra.ks.name" = "EVENT_KS",
+"cassandra.ks.username" = "admin","cassandra.ks.password" = "admin",
+"cassandra.cf.name" = "student_marksee",
+"cassandra.columns.mapping" = ":key,payload_studentName,payload_subject,payload_marks,map:" );
+ 
+select * from StudentMarks12 where subject='science' and marks > 70;
